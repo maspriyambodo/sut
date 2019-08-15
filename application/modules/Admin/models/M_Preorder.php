@@ -51,6 +51,8 @@ class M_Preorder extends CI_Model {
                 ->where('preorder.no_po', $no_po)
                 ->get()
                 ->result();
+        print_r($this->db->last_query());
+        die;
         return $exec;
     }
 
