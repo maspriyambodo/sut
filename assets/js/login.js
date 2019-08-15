@@ -38,7 +38,7 @@ function Login() {
         $.ajax({
             async: !1,
             type: 'POST',
-            url: "https://localhost/SUT/Auth/Proses/",
+            url: "http://localhost:8080/sut/Auth/Proses/",
             data: {
                 'uname': a,
                 'nik': b
@@ -46,11 +46,11 @@ function Login() {
             statusCode: {
                 200: function (data) {
                     if (data.hakakses == 1) {
-                        window.location.href = "https://localhost/SUT/Admin/Dashboard/index";
+                        window.location.href = "http://localhost:8080/sut/Admin/Dashboard/index";
                     } else if (data.hakakses == 2) {
-                        window.location.href = "https://localhost/SUT/Customer/Dashboard/index";
+                        window.location.href = "http://localhost:8080/sut/Customer/Dashboard/index";
                     } else if (data.hakakses == 3) {
-                        window.location.href = "https://localhost/SUT/Direktur/Dashboard/index";
+                        window.location.href = "http://localhost:8080/sut/Direktur/Dashboard/index";
                     }
                 },
                 201: function (data) {
