@@ -47,7 +47,7 @@
                                     Quotation Date
                                 </td>
                                 <td>
-                                    : <?= $value[0]->no_penawaran ?>
+<!--                                    : <?= $value[0]->no_penawaran ?> -->
                                 </td>
                             </tr>
 

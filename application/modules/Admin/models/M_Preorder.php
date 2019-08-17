@@ -15,9 +15,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_Preorder extends CI_Model {
 
     function index() {
-        $exec = $this->db->select('preorder.no_po,customers.nama,customers.perusahaan,customers.telepon,customers.mail')
+        $exec = $this->db->select('msg_po.pesan,preorder.no_po,customers.nama,customers.perusahaan,customers.telepon,customers.mail')
                 ->from('preorder')
                 ->join('customers', 'preorder.no_po = customers.no_po', 'LEFT')
+                ->join('msg_po', 'preorder.no_po = msg_po.no_po', 'LEFT')
                 ->group_by('preorder.no_po')
                 ->get()
                 ->result();
@@ -51,13 +52,54 @@ class M_Preorder extends CI_Model {
                 ->where('preorder.no_po', $no_po)
                 ->get()
                 ->result();
-        print_r($this->db->last_query());
-        die;
         return $exec;
     }
 
     function Message($no_po) {
-        
+        $exec = $this->db->select('preorder.no_po,preorder.tgl_po,preorder.nama_barang,preorder.qty,preorder.harga,(SELECT SUM(qty * harga) FROM preorder WHERE preorder.no_po=' . $no_po . ') AS total,customers.nama,customers.perusahaan,customers.alamat_perusahaan,customers.telepon,customers.mail')
+                ->from('preorder')
+                ->join('customers', 'preorder.no_po = customers.no_po', 'LEFT')
+                ->where('preorder.no_po', $no_po)
+                ->get()
+                ->result();
+        return $exec;
+    }
+
+    function Kirim($data) {
+        $this->db->trans_begin();
+        $this->db->set(['no_po' => $data['no_po'], 'pesan' => $data['pesan'], 'syscreateuser' => $this->session->userdata('id'), 'syscreatedate' => date("Y-m-d H:i:s")])
+                ->insert('msg_po');
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return false;
+        } else {
+            $this->db->trans_commit();
+            return true;
+        }
+    }
+
+    function Messagedetail($no_po) {
+        $exec = $this->db->select('msg_po.pesan,msg_po.no_po')
+                ->from('msg_po')
+                ->where('msg_po.no_po', $no_po)
+                ->get()
+                ->result();
+        return $exec;
+    }
+
+    function Proses($no_po) {
+        $count = $this->db->select('id_penawaran')->from('penawaran')->get()->num_rows();
+        $this->db->trans_begin();
+        $this->db->set(['no_penawaran' => date('Ymd') . $count + 1, 'no_po' => $no_po, 'tgl' => date('Y-m-d H:i:s')
+                ])
+                ->insert('penawaran');
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            return false;
+        } else {
+            $this->db->trans_commit();
+            return true;
+        }
     }
 
 }

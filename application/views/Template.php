@@ -15,6 +15,7 @@
         <link href="<?= base_url('assets/css/animate.css'); ?>" type="text/css" rel="stylesheet"/>
         <link href="<?= base_url('assets/css/custom.min.css'); ?>" rel="stylesheet">
         <link href="<?= base_url('node_modules/chart.js/dist/Chart.min.css'); ?>" rel=stylesheet type="text/css" />
+        <link href="<?= base_url('assets/css/prettify.css'); ?>" rel="stylesheet" type="text/css"/>
     </head>
     <body class="nav nav-md">
         <div class="container body">
@@ -23,7 +24,7 @@
                     <div class="left_col scroll-view">
                         <div class="clearfix"></div>
                         <div class="profile clearfix">
-                            <div class="profile_pic"> <img src="<?= base_url('assets/images/user/marketing.png');?>" class="img-circle profile_img img-rounded"> </div>
+                            <div class="profile_pic"> <img src="<?= base_url('assets/images/user/marketing.png'); ?>" class="img-circle profile_img img-rounded"> </div>
                             <div class="profile_info">
                                 <span>Welcome,</span>
                                 <h2 class="text-uppercase"><?= $uname; ?></h2>
@@ -77,57 +78,56 @@
                                     </ul>
                                 </div>
                             </div>
-                                <!--====================================================================================-->
-                                <div class="menu_section <?= $direktur; ?>">
-                                    <ul class="nav side-menu">
-                                        <li class=""><a href="<?= base_url('Direktur/Dashboard/index'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                                        <li class="">
-                                            <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu" style="display: none;">
-                                                <li><a href="#">Dashboard</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
                             <!--====================================================================================-->
+                            <div class="menu_section <?= $direktur; ?>">
+                                <ul class="nav side-menu">
+                                    <li class=""><a href="<?= base_url('Direktur/Dashboard/index'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                                    <li class="">
+                                        <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu" style="display: none;">
+                                            <li><a href="#">Dashboard</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
+                        <!--====================================================================================-->
                     </div>
                 </div>
-                <div class="top_nav">
-                    <div class="nav_menu">
-                        <nav>
-                            <div class="nav toggle"><a id="menu_toggle"><i class="fa fa-bars"></i></a></div>
+            </div>
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav>
+                        <div class="nav toggle"><a id="menu_toggle"><i class="fa fa-bars"></i></a></div>
 
-                            <ul class="nav navbar-nav navbar-right"> 
-                                <li class=""> 
-                                    <a href="javascript:;" class="user-profile dropdown-toggle text-uppercase" data-toggle="dropdown" aria-expanded="false"> 
-                                        <img src="../../assets/images/user/marketing.png"><?= $uname ?> 
-                                        <span class=" fa fa-angle-down">
-                                        </span> 
-                                    </a> 
-                                    <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                        <li>
-                                            <a href="<?= base_url('Auth/Logout'); ?>">
-                                                <i class="fa fa-sign-out pull-right">
-                                                </i> Log Out
-                                            </a>
-                                        </li> 
-                                    </ul> 
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
+                        <ul class="nav navbar-nav navbar-right"> 
+                            <li class=""> 
+                                <a href="javascript:;" class="user-profile dropdown-toggle text-uppercase" data-toggle="dropdown" aria-expanded="false"> 
+                                    <img src="<?= base_url('assets/images/user/marketing.png'); ?>"><?= $uname ?> 
+                                    <span class=" fa fa-angle-down">
+                                    </span> 
+                                </a> 
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    <li>
+                                        <a href="<?= base_url('Auth/Logout'); ?>">
+                                            <i class="fa fa-sign-out pull-right">
+                                            </i> Log Out
+                                        </a>
+                                    </li> 
+                                </ul> 
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
-                <div class="right_col hidden" role="main" style="min-height:0px ! important;">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2 class="text-uppercase"><?= $formtitle; ?></h2>
-                            <div class="clearfix" style="clear:both;margin:0px;"></div>
-                        </div>
-                        <div class="x_content clearfix" style="clear:both;margin:0px;display:block;">
-                            <?= $content ?>
-                        </div>
+            </div>
+            <div class="right_col hidden" role="main" style="min-height:0px ! important;">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2 class="text-uppercase"><?= $formtitle; ?></h2>
+                        <div class="clearfix" style="clear:both;margin:0px;"></div>
+                    </div>
+                    <div class="x_content clearfix" style="clear:both;margin:0px;display:block;">
+                        <?= $content ?>
                     </div>
                 </div>
             </div>
@@ -139,6 +139,7 @@
     <div class="back-to-top" data-placement="top" data-toggle="tooltip" id="back-top" title="" data-original-title="Back to Top"><i class="fa fa-chevron-up"></i></div>
     <script src="<?= base_url('assets/js/jquery.min.js'); ?>" type="text/javascript"></script>
     <script src="<?= base_url('assets/js/bootstrap.min.js'); ?>" type="text/javascript"></script>
+    <script src="<?= base_url('assets/js/bootstrap-wysiwyg.min.js'); ?>" type="text/javascript"></script>
     <script src="<?= base_url('assets/js/fastclick.min.js'); ?>" type="text/javascript"></script>
     <script src="<?= base_url('node_modules/nprogress/nprogress.js'); ?>" type="text/javascript"></script>
     <script src="<?= base_url('node_modules/chart.js/dist/Chart.min.js'); ?>" type="text/javascript"></script>
@@ -147,19 +148,19 @@
     <script src="<?= base_url('assets/js/custom.min.js'); ?>" type="text/javascript"></script>
     <script src="<?= base_url('assets/js/dropzone.min.js'); ?>" type="text/javascript"></script>
     <script src="<?= base_url('assets/js/jquery.inputmask.bundle.min.js'); ?>" type="text/javascript"></script>
+    <script src="<?= base_url('assets/js/jquery.hotkeys.js'); ?>" type="text/javascript"></script>
     <script src="<?= base_url('assets/js/bootstrap-datepicker.min.js'); ?>" type="text/javascript"></script>
-    <script src="<?= base_url('assets/js/signature_pad.min.js'); ?>" type="text/javascript"></script>
     <script src="<?= base_url('assets/js/jquery.number.min.js'); ?>" type="text/javascript"></script>
-    <script src="<?= base_url('assets/js/html2canvas.min.js'); ?>" type="text/javascript"></script>
     <script src="<?= base_url('assets/js/datatables.min.js'); ?>" type="text/javascript"></script>
     <script src="<?= base_url('assets/js/pdfmake.min.js'); ?>" type="text/javascript"></script>
     <script src="<?= base_url('assets/js/vfs_fonts.js'); ?>" type="text/javascript"></script>
+    <script src="<?= base_url('assets/js/prettify.js'); ?>" type="text/javascript"></script>
+    <script>
+        document.onreadystatechange = () => {
+            if (document.readyState === 'complete') {
+                $(".right_col").removeClass("hidden");
+            }
+        };
+    </script>
 </body>
-<script>
-    document.onreadystatechange = () => {
-        if (document.readyState === 'complete') {
-            $(".right_col").removeClass("hidden");
-        }
-    };
-</script>
 </html>

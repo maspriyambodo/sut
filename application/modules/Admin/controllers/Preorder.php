@@ -67,7 +67,7 @@ class Preorder extends CI_Controller {
             'hak_akses' => $this->result[0]->level,
             'value' => $this->M_Preorder->Quotation($no_po)
         ];
-        $this->load->view('V_Quotation', $data);
+        $this->load->view('V_Quotationpo', $data);
     }
 
     function Message($no_po) {
@@ -81,6 +81,42 @@ class Preorder extends CI_Controller {
         ];
         $data['content'] = $this->load->view('V_Message', $data, true);
         $this->load->view('template', $data);
+    }
+
+    function Kirim($param) {
+        $data = [
+            'no_po' => $param,
+            'pesan' => $this->input->post('pesan', false)
+        ];
+        $exec = $this->M_Preorder->Kirim($data);
+        if ($exec == true) {
+            $response = array('textStatus' => 'Success, Message has been send !');
+        } else {
+            $response = array('textStatus' => 'Error');
+        }
+        $this->output
+                ->set_status_header(200)
+                ->set_content_type('application/json', 'utf-8')
+                ->set_output(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
+                ->_display();
+        exit;
+    }
+
+    function Messagedetail($no_po) {
+        $data = [
+            'title' => 'Message Preorder | PT SUT',
+            'formtitle' => 'Message Preorder',
+            'id' => $this->result[0]->id,
+            'uname' => $this->result[0]->username,
+            'hak_akses' => $this->result[0]->level,
+            'value' => $this->M_Preorder->Messagedetail($no_po)
+        ];
+        $data['content'] = $this->load->view('Messagedetail', $data, true);
+        $this->load->view('template', $data);
+    }
+
+    function Proses($no_po) {
+        $this->M_Preorder->Proses($no_po);
     }
 
 }

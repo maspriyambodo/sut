@@ -18,9 +18,23 @@
                 <td class="text-center"><?= $value->telepon; ?></td>
                 <td><?= $value->mail; ?></td>
                 <td class="text-center">
-                    <a href="<?= base_url('Admin/Preorder/Detail/' . $value->no_po . ''); ?>" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <div class="btn-group" role="group">
+                        <a href="<?= base_url('Admin/Preorder/Detail/' . $value->no_po . ''); ?>" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="Detail Preorder"><i class="glyphicon glyphicon-eye-open"></i></a>
+                            <?php
+                            if ($value->pesan != '') {
+                                echo '<a href="' . base_url('Admin/Preorder/Messagedetail/' . $value->no_po . '') . '" class="btn btn-default btn-xs" data-toggle="tooltip" data-placement="top" title="Message"><i class="glyphicon glyphicon-envelope"></i></a>';
+                            } else {
+                                echo '';
+                            }
+                            ?>
+                    </div>
                 </td>
             </tr>
         <?php } ?>
     </tbody>
 </table>
+<script>
+    window.onload = function () {
+        $('.table').dataTable({});
+    };
+</script>
