@@ -116,7 +116,12 @@ class Preorder extends CI_Controller {
     }
 
     function Proses($no_po) {
-        $this->M_Preorder->Proses($no_po);
+        $exec = $this->M_Preorder->Proses($no_po);
+        if ($exec == true) {
+            echo '<script>alert("Success, Preorder has been success processed !");window.location.href="' . base_url('Admin/Preorder/') . '";</script>';
+        } else {
+            echo '<script>alert("Error, Preorder has been fail processed !");window.location.href="' . base_url('Admin/Preorder/') . '";</script>';
+        }
     }
 
 }
