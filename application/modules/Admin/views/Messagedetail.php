@@ -1,7 +1,7 @@
-<div class="panel panel-default">
-    <div class="panel-body">
-        <?php foreach ($value as $value) { ?>
-        <?= $value->pesan ?>
-        <?php } ?>
+<?php foreach ($value as $value) { ?>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <?= $value->pesan ?>
+        </div>
     </div>
-</div>
+<?php } ?>

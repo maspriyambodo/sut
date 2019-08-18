@@ -46,7 +46,29 @@ class Preorder extends CI_Controller {
         $this->load->view('template', $data);
     }
 
+    private function Qrpo() {
+        $exec = $this->M_Preorder->Cetak($this->uri->segment(4));
+        $this->load->library('ciqrcode');
+        $config['cacheable'] = true; //boolean, the default is true
+        $config['cachedir'] = './assets/images/qrpo'; //string, the default is application/cache/
+        $config['errorlog'] = './assets/'; //string, the default is application/logs/
+        $config['imagedir'] = './assets/images/qrpo/'; //direktori penyimpanan qr code
+        $config['quality'] = true; //boolean, the default is true
+        $config['size'] = '1024'; //interger, the default is 1024
+        $config['black'] = array(0, 145, 234); // array, default is array(255,255,255)
+        $config['white'] = array(70, 130, 180); // array, default is array(0,0,0)
+        $this->ciqrcode->initialize($config);
+        $image_name = $this->uri->segment(4) . '.png'; //buat name dari qr code sesuai dengan nim
+        $params['data'] = $this->uri->segment(4); //data yang akan di jadikan QR CODE
+        $params['level'] = 'H'; //H=High
+        $params['size'] = 10;
+        $params['savename'] = $config['imagedir'] . $exec[0]->perusahaan . '_' . $image_name; //simpan image QR CODE ke folder assets/images/
+        $this->ciqrcode->generate($params);
+    }
+
     function Cetak($no_po) {
+        $this->Qrpo();
+        $this->load->helper("terbilang");
         $data = [
             'title' => 'Preorder | PT SUT',
             'formtitle' => 'print Preorder',
@@ -117,10 +139,8 @@ class Preorder extends CI_Controller {
 
     function Proses($no_po) {
         $exec = $this->M_Preorder->Proses($no_po);
-        if ($exec == true) {
-            echo '<script>alert("Success, Preorder has been success processed !");window.location.href="' . base_url('Admin/Preorder/') . '";</script>';
-        } else {
-            echo '<script>alert("Error, Preorder has been fail processed !");window.location.href="' . base_url('Admin/Preorder/') . '";</script>';
+        if ($exec == false) {
+            echo '<script>alert("Error, Preorder has been fail processed !");window.location.href="' . base_url('Admin/Preorder/index/') . '";</script>';
         }
     }
 

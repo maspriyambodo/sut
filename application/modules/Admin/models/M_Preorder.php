@@ -15,10 +15,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_Preorder extends CI_Model {
 
     function index() {
-        $exec = $this->db->select('msg_po.pesan,preorder.no_po,customers.nama,customers.perusahaan,customers.telepon,customers.mail')
-                ->from('preorder')
-                ->join('customers', 'preorder.no_po = customers.no_po', 'LEFT')
-                ->join('msg_po', 'preorder.no_po = msg_po.no_po', 'LEFT')
+        $exec = $this->db->select('msg_po.pesan,customers.nama,customers.perusahaan,customers.telepon,customers.mail,preorder.no_po')
+                ->from('customers')
+                ->join('preorder', 'customers.id_customer = preorder.id_customer', 'inner')
+                ->join('msg_po', 'preorder.no_po = msg_po.no_po', 'left')
                 ->group_by('preorder.no_po')
                 ->get()
                 ->result();
@@ -26,9 +26,10 @@ class M_Preorder extends CI_Model {
     }
 
     function Detail($no_po) {
-        $exec = $this->db->select('preorder.no_po,preorder.tgl_po,preorder.nama_barang,preorder.qty,preorder.harga,(SELECT SUM(qty * harga) FROM preorder WHERE preorder.no_po=' . $no_po . ') AS total,customers.nama,customers.perusahaan,customers.alamat_perusahaan,customers.telepon,customers.mail')
-                ->from('preorder')
-                ->join('customers', 'preorder.no_po = customers.no_po', 'LEFT')
+        $exec = $this->db->select('preorder.no_po,preorder.tgl_po,customers.nama,customers.perusahaan,customers.alamat_perusahaan,customers.telepon,customers.mail,product.`name` AS nama_barang,product.partnumber,preorder.qty,product.price,( SELECT SUM( preorder.qty * product.price ) FROM preorder LEFT JOIN product ON preorder.nama_barang = product.id ) AS total ')
+                ->from('customers')
+                ->join('preorder', 'customers.id_customer = preorder.id_customer', 'left')
+                ->join('product', 'preorder.nama_barang = product.id', 'left')
                 ->where('preorder.no_po', $no_po)
                 ->get()
                 ->result();
@@ -36,9 +37,10 @@ class M_Preorder extends CI_Model {
     }
 
     function Cetak($no_po) {
-        $exec = $this->db->select('preorder.no_po,preorder.tgl_po,preorder.nama_barang,preorder.qty,preorder.harga,(SELECT SUM(qty * harga) FROM preorder WHERE preorder.no_po=' . $no_po . ') AS total,customers.nama,customers.perusahaan,customers.alamat_perusahaan,customers.telepon,customers.mail')
-                ->from('preorder')
-                ->join('customers', 'preorder.no_po = customers.no_po', 'LEFT')
+        $exec = $this->db->select('preorder.no_po,preorder.tgl_po,customers.nama,customers.perusahaan,customers.alamat_perusahaan,customers.telepon,customers.mail,product.`name` AS nama_barang,product.partnumber,preorder.qty,product.price,( SELECT SUM( preorder.qty * product.price ) FROM preorder LEFT JOIN product ON preorder.nama_barang = product.id ) AS total ')
+                ->from('customers')
+                ->join('preorder', 'customers.id_customer = preorder.id_customer', 'left')
+                ->join('product', 'preorder.nama_barang = product.id', 'left')
                 ->where('preorder.no_po', $no_po)
                 ->get()
                 ->result();
@@ -56,9 +58,10 @@ class M_Preorder extends CI_Model {
     }
 
     function Message($no_po) {
-        $exec = $this->db->select('preorder.no_po,preorder.tgl_po,preorder.nama_barang,preorder.qty,preorder.harga,(SELECT SUM(qty * harga) FROM preorder WHERE preorder.no_po=' . $no_po . ') AS total,customers.nama,customers.perusahaan,customers.alamat_perusahaan,customers.telepon,customers.mail')
-                ->from('preorder')
-                ->join('customers', 'preorder.no_po = customers.no_po', 'LEFT')
+        $exec = $this->db->select('preorder.no_po,preorder.tgl_po,customers.nama,customers.perusahaan,customers.alamat_perusahaan,customers.telepon,customers.mail,product.`name` AS nama_barang,product.partnumber,preorder.qty,product.price,( SELECT SUM( preorder.qty * product.price ) FROM preorder LEFT JOIN product ON preorder.nama_barang = product.id ) AS total ')
+                ->from('customers')
+                ->join('preorder', 'customers.id_customer = preorder.id_customer', 'left')
+                ->join('product', 'preorder.nama_barang = product.id', 'left')
                 ->where('preorder.no_po', $no_po)
                 ->get()
                 ->result();
@@ -89,8 +92,11 @@ class M_Preorder extends CI_Model {
 
     function Proses($no_po) {
         $count = $this->db->select('id_penawaran')->from('penawaran')->get()->num_rows();
+        $no_penawaran = date('Ymd') . $count + 1;
         $this->db->trans_begin();
-        $this->db->set(['no_penawaran' => date('Ymd') . $count + 1, 'no_po' => $no_po, 'tgl' => date('Y-m-d H:i:s')
+        $this->db->set('status_po', 2)->where('no_po', $no_po)->update('preorder');
+        $this->db->set(['customers.no_penawaran'])->where('customers.no_po')->insert('customers');
+        $this->db->set(['no_penawaran' => $no_penawaran, 'no_po' => $no_po, 'tgl' => date('Y-m-d H:i:s')
                 ])
                 ->insert('penawaran');
         if ($this->db->trans_status() === FALSE) {
@@ -98,7 +104,7 @@ class M_Preorder extends CI_Model {
             return false;
         } else {
             $this->db->trans_commit();
-            return true;
+            echo '<script>alert("Success, Preorder has been success processed !");window.location.href="' . base_url('Admin/Quotation/Detail/' . $no_penawaran . '') . '";</script>';
         }
     }
 

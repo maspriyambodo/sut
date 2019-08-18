@@ -26,9 +26,23 @@ class Quotation extends CI_Controller {
             'formtitle' => 'Quotation administrator',
             'id' => $this->result[0]->id,
             'uname' => $this->result[0]->username,
-            'hak_akses' => $this->result[0]->level
+            'hak_akses' => $this->result[0]->level,
+            'value' => $this->M_Quotation->index()
         ];
         $data['content'] = $this->load->view('V_Quotation', $data, true);
+        $this->load->view('template', $data);
+    }
+
+    function Detail($no_penawaran) {
+        $data = [
+            'title' => 'Quotation | PT SUT',
+            'formtitle' => 'Quotation administrator',
+            'id' => $this->result[0]->id,
+            'uname' => $this->result[0]->username,
+            'hak_akses' => $this->result[0]->level,
+            'value' => $this->M_Quotation->Detail($no_penawaran)
+        ];
+        $data['content'] = $this->load->view('V_Quotationdetail', $data, true);
         $this->load->view('template', $data);
     }
 
