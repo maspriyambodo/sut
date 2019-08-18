@@ -58,6 +58,7 @@
                                 <div class="menu_section <?= $admin; ?>">
                                     <ul class="nav side-menu">
                                         <li><a href="<?= base_url('Admin/Dashboard/index'); ?>"><i class="fa fa-dashboard"></i> DASHBOARD</a></li>
+                                        <li><a href="<?= base_url('Admin/Product/index'); ?>"><i class="glyphicon glyphicon-wrench"></i> Product</a></li>
                                         <li><a href="<?= base_url('Admin/Preorder/index'); ?>"><i class="glyphicon glyphicon-shopping-cart"></i> P O</a></li>
                                         <li><a href="<?= base_url('Admin/Quotation/index'); ?>"><i class="glyphicon glyphicon-list-alt"></i> Quotation</a></li>
                                         <li><a href="<?= base_url('Admin/Payment/index'); ?>"><i class="fa fa-credit-card-alt"></i> Payment</a></li>

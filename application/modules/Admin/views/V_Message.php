@@ -6,7 +6,7 @@
         </div>
         <div class="form-group">
             <label class="text-uppercase">no preorder</label>
-            <p class="text-uppercase"><?= $value[0]->no_po; ?></p>
+            <p class="text-uppercase" id="no_po"><?= $value[0]->no_po; ?></p>
         </div>
     </div>
     <div class="col-md-4">
@@ -105,7 +105,7 @@
     function Kirim() {
         var a, b;
         a = document.getElementById('editor-one').innerHTML;
-        b = <?= $this->uri->segment(4) ?>;
+        b = document.getElementById('no_po').innerHTML;
         $.ajax({
             url: "<?= base_url('Admin/Preorder/Kirim/'); ?>" + b,
             method: 'POST',
