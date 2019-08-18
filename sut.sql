@@ -11,7 +11,7 @@
  Target Server Version : 100316
  File Encoding         : 65001
 
- Date: 18/08/2019 08:14:37
+ Date: 18/08/2019 11:49:34
 */
 
 SET NAMES utf8mb4;
@@ -31927,7 +31927,12 @@ CREATE TABLE `msg_po`  (
   `sysdeleteuser` int(11) NULL DEFAULT NULL,
   `sysdeletedate` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of msg_po
+-- ----------------------------
+INSERT INTO `msg_po` VALUES (1, '01000539100', '\n    <img src=\"http://localhost/sut/assets/images/Logo/SANINDO_.jpg\" style=\"width:150px;\">\n    <p>Head Office: Jl. Tebet Barat XI No.8-9, Jakarta Selatan 12810</p>\n    <p>Phone: (021) 22837646, Email: generaladmin@sanindo.co.id</p><p><br></p><p align=\"center\">VISI Menjadikan distributor PT. Sanindo Utama Traktor sebagai salah satu sarana yang dapat diandalkan dan dipercaya mitra</p><p align=\"center\">MISI Menjadikan PT. Sanindo Utama Traktor Perusahaan yang dapat bersaing dan terpercaya</p>\n', 1, '2019-08-18 09:33:40', NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for penawaran
@@ -31984,21 +31989,32 @@ CREATE TABLE `product`  (
   `name` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `partnumber` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `stock` int(11) NULL DEFAULT NULL,
-  `price` decimal(10, 2) NULL DEFAULT NULL,
+  `price` decimal(15, 2) NULL DEFAULT NULL,
+  `stat` int(11) NULL DEFAULT NULL,
+  `syscreateuser` int(11) NULL DEFAULT NULL,
+  `syscreatedate` datetime(0) NULL DEFAULT NULL,
+  `sysupdateuser` int(11) NULL DEFAULT NULL,
+  `sysupdatedate` datetime(0) NULL DEFAULT NULL,
+  `sysdeleteuser` int(11) NULL DEFAULT NULL,
+  `sysdeletedate` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of product
 -- ----------------------------
-INSERT INTO `product` VALUES (1, 'Oil Filter', NULL, 12, 199000.00);
-INSERT INTO `product` VALUES (2, 'Water Separator', NULL, 12, 270000.00);
-INSERT INTO `product` VALUES (3, 'Fuel Filter', NULL, 12, 110000.00);
-INSERT INTO `product` VALUES (4, 'Wheel Bolt RR', NULL, 10, 180000.00);
-INSERT INTO `product` VALUES (5, 'Wheel Nut RR', NULL, 10, 80000.00);
-INSERT INTO `product` VALUES (6, 'Wheel Bolt FRT', NULL, 10, 175000.00);
-INSERT INTO `product` VALUES (7, 'Wheel Nut FRT', NULL, 10, 80000.00);
-INSERT INTO `product` VALUES (8, 'Air Cleaner', NULL, 12, 1470000.00);
+INSERT INTO `product` VALUES (1, 'Oil Filter', 'olx234', 12, 199000.00, 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `product` VALUES (2, 'Water Separator', 'wsp9034', 12, 270000.00, 1, NULL, NULL, NULL, NULL, 1, '2019-08-18 11:37:46');
+INSERT INTO `product` VALUES (3, 'Fuel Filter', 'fftr34', 12, 110000.00, 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `product` VALUES (4, 'Wheel Bolt RR', NULL, 10, 180000.00, 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `product` VALUES (5, 'Wheel Nut RR', NULL, 10, 80000.00, 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `product` VALUES (6, 'Wheel Bolt FRT', 'pcsf342', 10, 175000.00, 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `product` VALUES (7, 'Wheel Nut FRT', NULL, 10, 80000.00, 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `product` VALUES (8, 'Air Cleaner', NULL, 12, 1470000.00, 1, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `product` VALUES (10, ' Mortar Pump', 'p816s', 102, 5250987000.00, 1, 1, '2019-08-18 11:44:03', NULL, NULL, NULL, NULL);
+INSERT INTO `product` VALUES (11, ' Mortar Pump', 'p816s', 102, 5250956000.00, 1, 1, '2019-08-18 11:45:10', NULL, NULL, NULL, NULL);
+INSERT INTO `product` VALUES (12, ' Mortar Pump', 'p816s', 102, 5250956000.00, NULL, 1, '2019-08-18 11:46:24', NULL, NULL, NULL, NULL);
+INSERT INTO `product` VALUES (13, 'Hopper Capacity', 'p816s', 5, 129765000.00, 1, 1, '2019-08-18 11:48:24', NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for transaksi
