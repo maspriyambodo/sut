@@ -72,7 +72,9 @@ class Product extends CI_Controller {
             'name' => $this->input->post('nameproduct', true),
             'partnumber' => $this->input->post('partnumb', true),
             'stock' => $this->input->post('stockb', true),
-            'price' => $this->input->post('priceb', true)
+            'price' => $this->input->post('priceb', true),
+            'sysupdateuser'=> $this->session->userdata('id'),
+            'sysupdatedate' => date("Y-m-d H:i:s")
         ];
         $exec = $this->M_Product->Update($data);
         if ($exec == true) {
