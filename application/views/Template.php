@@ -63,7 +63,7 @@
                                         <li><a href="<?= base_url('Admin/Quotation/index'); ?>"><i class="glyphicon glyphicon-list-alt"></i> Quotation</a></li>
                                         <li><a href="<?= base_url('Admin/Payment/index'); ?>"><i class="fa fa-credit-card-alt"></i> Payment</a></li>
                                         <li><a href="<?= base_url('Admin/Invoice/index'); ?>"><i class="fa fa-file-text"></i> Invoice</a></li>
-                                        <li><a href="<?= base_url('Admin/Report/index'); ?>"><i class="fa fa-files-o"></i> Report</a></li>
+                                        <li><a href="<?= base_url('Admin/Report/index/' . date("Y") . ''); ?>"><i class="fa fa-files-o"></i> Report</a></li>
                                     </ul>
                                 </div>
                                 <!--====================================================================================-->

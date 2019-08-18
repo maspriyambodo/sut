@@ -94,10 +94,9 @@ class M_Preorder extends CI_Model {
         $count = $this->db->select('id_penawaran')->from('penawaran')->get()->num_rows();
         $no_penawaran = date('Ymd') . $count + 1;
         $this->db->trans_begin();
-        $this->db->set('status_po', 2)->where('no_po', $no_po)->update('preorder');
-        $this->db->set(['customers.no_penawaran'])->where('customers.no_po')->insert('customers');
-        $this->db->set(['no_penawaran' => $no_penawaran, 'no_po' => $no_po, 'tgl' => date('Y-m-d H:i:s')
-                ])
+        $this->db->set(['preorder.no_penawaran' => $no_penawaran, 'preorder.status_po' => 2,])
+                ->where('no_po', $no_po)->update('preorder');
+        $this->db->set(['penawaran.no_penawaran' => $no_penawaran, 'penawaran.no_po' => $no_po, 'penawaran.tgl' => date('Y-m-d H:i:s')])
                 ->insert('penawaran');
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
