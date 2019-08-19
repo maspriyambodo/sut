@@ -26,7 +26,7 @@ class M_Preorder extends CI_Model {
     }
 
     function Detail($no_po) {
-        $exec = $this->db->select('preorder.no_po,preorder.tgl_po,customers.nama,customers.perusahaan,customers.alamat_perusahaan,customers.telepon,customers.mail,product.`name` AS nama_barang,product.partnumber,preorder.qty,product.price,( SELECT SUM( preorder.qty * product.price ) FROM preorder LEFT JOIN product ON preorder.nama_barang = product.id ) AS total ')
+        $exec = $this->db->select('preorder.status_po,preorder.no_po,preorder.tgl_po,customers.nama,customers.perusahaan,customers.alamat_perusahaan,customers.telepon,customers.mail,product.`name` AS nama_barang,product.partnumber,preorder.qty,product.price,( SELECT SUM( preorder.qty * product.price ) FROM preorder LEFT JOIN product ON preorder.nama_barang = product.id WHERE preorder.no_po = ' . $no_po . ') AS total ')
                 ->from('customers')
                 ->join('preorder', 'customers.id_customer = preorder.id_customer', 'left')
                 ->join('product', 'preorder.nama_barang = product.id', 'left')

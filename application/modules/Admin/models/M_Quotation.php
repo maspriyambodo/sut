@@ -24,13 +24,13 @@ class M_Quotation extends CI_Model {
         return $exec;
     }
 
-    function Detail($no_penawaran) {
-        $exec = $this->db->select('customers.nama,customers.perusahaan,customers.alamat_perusahaan,customers.telepon,customers.mail,penawaran.no_penawaran,penawaran.tgl,preorder.tgl_po')
+    function Detail($no_po) {
+        $exec = $this->db->select('penawaran.status_quotation,customers.nama,customers.perusahaan,customers.alamat_perusahaan,customers.telepon,customers.mail,preorder.no_po,preorder.tgl_po,product.`name` AS nama_barang,preorder.qty,product.price,( SELECT SUM( preorder.qty * product.price ) FROM preorder INNER JOIN product ON preorder.nama_barang = product.id WHERE preorder.no_po = 01000539101) AS total,penawaran.no_penawaran,penawaran.tgl AS tgl_penawaran')
                 ->from('customers')
-                ->join('penawaran', 'customers.no_penawaran = penawaran.no_penawaran', 'left')
-                ->join('preorder', 'customers.no_po = preorder.no_po', 'left')
-                ->where('penawaran.no_penawaran', $no_penawaran)
-                ->group_by('penawaran.no_penawaran')
+                ->join('preorder', 'customers.id_customer = preorder.id_customer', 'inner')
+                ->join('product', 'preorder.nama_barang = product.id', 'inner')
+                ->join('penawaran', 'preorder.no_penawaran = penawaran.no_penawaran', 'inner')
+                ->where('preorder.no_po', $no_po, false)
                 ->get()
                 ->result();
         return $exec;

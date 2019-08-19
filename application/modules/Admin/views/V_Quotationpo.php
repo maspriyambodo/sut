@@ -47,7 +47,7 @@
                                     Quotation Date
                                 </td>
                                 <td>
-<!--                                    : <?= $value[0]->no_penawaran ?> -->
+                                    <!--                                    : <?= $value[0]->no_penawaran ?> -->
                                 </td>
                             </tr>
 
@@ -102,12 +102,12 @@
                                 <?= $value->qty ?>
                             </td>
                             <td>
-                                Rp. <?= number_format($value->harga); ?>
+                                Rp. <?= number_format($value->price); ?>
                             </td>
                             <td>
                                 Rp. <?php
                                 $a = $value->qty;
-                                $b = $value->harga;
+                                $b = $value->price;
                                 echo number_format($a * $b);
                                 ?>
                             </td>
