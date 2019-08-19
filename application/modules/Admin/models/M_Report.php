@@ -15,12 +15,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class M_Report extends CI_Model {
 
     function index($year) {
-        $exec = $this->db->select('customers.id_customer,customers.nama,customers.perusahaan,preorder.no_po,(SELECT SUM(preorder.qty * product.price) FROM preorder INNER JOIN product ON preorder.nama_barang = product.id WHERE YEAR(preorder.tgl_po) = ' . $year . ') AS amount')
-                ->from('customers')
-                ->join('preorder', 'customers.id_customer = preorder.id_customer', 'inner')
-                ->join('product', 'preorder.nama_barang = product.id', 'inner')
+        $exec = $this->db->select('customers.id_customer,SUM( preorder.qty * product.price ) AS amount,customers.nama,customers.perusahaan,preorder.no_po ')
+                ->from('preorder')
+                ->join('product', 'preorder.nama_barang = product.id', 'left')
+                ->join('customers', 'preorder.id_customer = customers.id_customer ', 'left')
+                ->join('transaksi', 'transaksi.no_po = preorder.no_po', 'right')
                 ->where('YEAR(preorder.tgl_po) = ', $year, false)
-                ->group_by('customers.id_customer')
+                ->group_by('preorder.no_po')
                 ->get()
                 ->result();
         return $exec;
