@@ -17,17 +17,17 @@ class Dashboard extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('M_Dashboard');
-        $this->result = $this->M_User->Auth();
+        $this->result = $this->M_User->Customer();
     }
 
     function index() {
         $data = [
             'title' => 'Dashboard | PT SUT',
-            'formtitle' => 'Dashboard administrator',
-            'id' => $this->result[0]->id,
-            'uname' => $this->result[0]->username,
+            'formtitle' => $this->result[0]->perusahaan,
+            'id' => $this->result[0]->id_customer,
+            'uname' => $this->result[0]->nama,
             'hak_akses' => $this->result[0]->level,
-            'pict' => '',
+            'value' => $this->M_Dashboard->index($this->result[0]->id_customer)
         ];
         $data['content'] = $this->load->view('V_Dashboard', $data, true);
         $this->load->view('template', $data);
