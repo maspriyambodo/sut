@@ -31,13 +31,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6" style="float:left;">
-                    <div class="form-group">
-                        <img src="<?= base_url('assets/images/Logo/SANINDO_.jpg'); ?>" style="width:150px;"/>
-                    </div>
-                    <div class="form-group">
-                        <p>Head Office: Jl. Tebet Barat XI No.8-9, Jakarta Selatan 12810</p>
-                        <p>Phone: (021) 22837646, Email: generaladmin@sanindo.co.id</p>
-                    </div>
+                    
                 </div>
                 <div class="col-md-6">
                     <img src="<?= base_url('assets/images/qrpo/' . $value[0]->perusahaan . '_' . $value[0]->no_po . '.png'); ?>" style="width:50px;float:right;"/>
@@ -52,7 +46,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <label>Customer Name</label>
+                                    <label class="text-uppercase">Company Name</label>
                                 </td>
                                 <td>
                                     : <?= $value[0]->perusahaan ?>
@@ -154,6 +148,6 @@
                 <p>Direktur Utama</p>
             </div>
         </div>
-        <i>* The information in this page is copyright to PT Sanindo Utama Traktor</i>
+        <i style="position: fixed;bottom: 0;">* The information in this page is copyright to PT Sanindo Utama Traktor</i>
     </body>
 </html>
