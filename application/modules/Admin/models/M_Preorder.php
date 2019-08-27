@@ -26,7 +26,7 @@ class M_Preorder extends CI_Model {
     }
 
     function Detail($no_po) {
-        $exec = $this->db->select('preorder.no_po,preorder.tgl_po,customers.nama,customers.perusahaan,customers.alamat_perusahaan,customers.telepon,customers.mail,product.`name` AS nama_barang,product.partnumber,preorder.qty,product.price,( SELECT SUM( preorder.qty * product.price ) FROM preorder LEFT JOIN product ON preorder.nama_barang = product.id ) AS total ')
+        $exec = $this->db->select('preorder.status_po,preorder.no_po,preorder.tgl_po,customers.nama,customers.perusahaan,customers.alamat_perusahaan,customers.telepon,customers.mail,product.`name` AS nama_barang,product.partnumber,preorder.qty,product.price,( SELECT SUM( preorder.qty * product.price ) FROM preorder LEFT JOIN product ON preorder.nama_barang = product.id WHERE preorder.no_po = ' . $no_po . ') AS total ')
                 ->from('customers')
                 ->join('preorder', 'customers.id_customer = preorder.id_customer', 'left')
                 ->join('product', 'preorder.nama_barang = product.id', 'left')
@@ -94,10 +94,9 @@ class M_Preorder extends CI_Model {
         $count = $this->db->select('id_penawaran')->from('penawaran')->get()->num_rows();
         $no_penawaran = date('Ymd') . $count + 1;
         $this->db->trans_begin();
-        $this->db->set('status_po', 2)->where('no_po', $no_po)->update('preorder');
-        $this->db->set(['customers.no_penawaran'])->where('customers.no_po')->insert('customers');
-        $this->db->set(['no_penawaran' => $no_penawaran, 'no_po' => $no_po, 'tgl' => date('Y-m-d H:i:s')
-                ])
+        $this->db->set(['preorder.no_penawaran' => $no_penawaran, 'preorder.status_po' => 2,])
+                ->where('no_po', $no_po)->update('preorder');
+        $this->db->set(['penawaran.no_penawaran' => $no_penawaran, 'penawaran.no_po' => $no_po, 'penawaran.tgl' => date('Y-m-d H:i:s')])
                 ->insert('penawaran');
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();

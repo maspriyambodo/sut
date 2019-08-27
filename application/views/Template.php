@@ -35,6 +35,8 @@
                                     echo 'CUSTOMER';
                                 } elseif ($this->session->userdata('hakakses') == 3) {
                                     echo 'DIREKTUR';
+                                } else {
+                                    echo 'CUSTOMER';
                                 }
                                 ?>
                             </div>
@@ -60,22 +62,15 @@
                                         <li><a href="<?= base_url('Admin/Dashboard/index'); ?>"><i class="fa fa-dashboard"></i> DASHBOARD</a></li>
                                         <li><a href="<?= base_url('Admin/Product/index'); ?>"><i class="glyphicon glyphicon-wrench"></i> Product</a></li>
                                         <li><a href="<?= base_url('Admin/Preorder/index'); ?>"><i class="glyphicon glyphicon-shopping-cart"></i> P O</a></li>
-                                        <li><a href="<?= base_url('Admin/Quotation/index'); ?>"><i class="glyphicon glyphicon-list-alt"></i> Quotation</a></li>
                                         <li><a href="<?= base_url('Admin/Payment/index'); ?>"><i class="fa fa-credit-card-alt"></i> Payment</a></li>
                                         <li><a href="<?= base_url('Admin/Invoice/index'); ?>"><i class="fa fa-file-text"></i> Invoice</a></li>
-                                        <li><a href="<?= base_url('Admin/Report/index'); ?>"><i class="fa fa-files-o"></i> Report</a></li>
+                                        <li><a href="<?= base_url('Admin/Report/index/' . date("Y") . ''); ?>"><i class="fa fa-files-o"></i> Report</a></li>
                                     </ul>
                                 </div>
                                 <!--====================================================================================-->
                                 <div class="menu_section <?= $customer; ?>">
                                     <ul class="nav side-menu">
                                         <li class=""><a href="<?= base_url('Customer/Dashboard/index'); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-                                        <li class="">
-                                            <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu" style="display: none;">
-                                                <li><a href="#">Dashboard</a></li>
-                                            </ul>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -110,9 +105,24 @@
                                 </a> 
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li>
-                                        <a href="<?= base_url('Auth/Logout'); ?>">
+                                        <?php
+                                        $classlogin = '';
+                                        $classlogout = '';
+                                        if ($this->session->userdata('nama') == '') {
+                                            $classlogin = '';
+                                            $classlogout = 'hidden';
+                                        } else {
+                                            $classlogin = 'hidden';
+                                            $classlogout = '';
+                                        }
+                                        ?>
+                                        <a href="<?= base_url('Auth/Logout'); ?>" class="<?= $classlogout; ?>">
                                             <i class="fa fa-sign-out pull-right">
                                             </i> Log Out
+                                        </a>
+                                        <a href="<?= base_url('Auth/Login'); ?>" class="<?= $classlogin; ?>">
+                                            <i class="fa fa-sign-out pull-right">
+                                            </i> Log In
                                         </a>
                                     </li> 
                                 </ul> 

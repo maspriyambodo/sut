@@ -32,21 +32,9 @@
 </div>
 <div class="form-group text-right">
     <div class="btn-group" role="group" aria-label="...">
-        <a href="<?= base_url('Admin/Preorder/Message/' . $value[0]->no_po . ''); ?>" class="btn btn-default"><i class="glyphicon glyphicon-envelope"></i> Message</a>
-        <a href="<?= base_url('Admin/Preorder/Cetak/' . $value[0]->no_po . ''); ?>" class="btn btn-default" target="_new"><i class="glyphicon glyphicon-print"></i> Print</a>
-        <?php
-        $proses;
-        $Quotation;
-        if ($value[0]->status_po == 2) {
-            $proses = 'hidden';
-            $Quotation = '';
-        } else {
-            $proses = '';
-            $Quotation = 'hidden';
-        }
-        ?>
-        <a href="<?= base_url('Admin/Preorder/Proses/' . $value[0]->no_po . ''); ?>" class="btn btn-default <?= $proses ?>"><i class="glyphicon glyphicon-ok-circle"></i> Process</a>
-        <a href="<?= base_url('Admin/Quotation/Detail/' . $value[0]->no_po . ''); ?>" class="btn btn-default <?= $Quotation ?>"><i class="glyphicon glyphicon-list-alt"></i> Quotation</a>
+        <a href="<?= base_url('Customer/Preorder/Message/' . $value[0]->no_po . ''); ?>" class="btn btn-default"><i class="glyphicon glyphicon-envelope"></i> Message</a>
+        <a href="<?= base_url('Customer/Preorder/Cetak/' . $value[0]->no_po . ''); ?>" class="btn btn-default" target="_new"><i class="glyphicon glyphicon-print"></i> Print</a>
+        <a href="<?= base_url('Customer/Quotation/Detail/' . $value[0]->no_po . ''); ?>" class="btn btn-default"><i class="glyphicon glyphicon-list-alt"></i> Quotation</a>
     </div>
 </div>
 <table class="table table-bordered table-hover table-striped" style="width:100%;">

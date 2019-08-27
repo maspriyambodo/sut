@@ -27,7 +27,7 @@ class Dashboard extends CI_Controller {
             'id' => $this->result[0]->id,
             'uname' => $this->result[0]->username,
             'hak_akses' => $this->result[0]->level,
-            'pict' => '',
+            'value' => $this->M_Dashboard->index()
         ];
         $data['content'] = $this->load->view('V_Dashboard', $data, true);
         $this->load->view('template', $data);
