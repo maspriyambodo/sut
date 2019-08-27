@@ -30,7 +30,9 @@ class Auth extends CI_Controller {
             if ($this->session->userdata('hakakses') == 1) {
                 redirect('Admin/Dashboard/index', 'refresh');
             } elseif ($this->session->userdata('hakakses') == 2) {
-                redirect('Customer/Dashboard/index', 'refresh');
+                redirect('Logistik/Dashboard/index', 'refresh');
+            } elseif ($this->session->userdata('hakakses') == 3) {
+                redirect('Finance/Dashboard/index', 'refresh');
             } elseif ($this->session->userdata('hakakses') == 3) {
                 redirect('Direktur/Dashboard/index', 'refresh');
             } else {
@@ -47,7 +49,7 @@ class Auth extends CI_Controller {
         $result = $this->M_Auth->proses($data);
         if ($result == true) {
             $response = array('statusCode' => 200, 'hakakses' => $result[0]->level);
-            $session = array('id' => $result[0]->id, 'nama' => $result[0]->username, 'hakakses' => $result[0]->level, 'pwd' => sha1($data['pwd']));
+            $session = array('id' => $result[0]->id, 'nama' => $result[0]->username, 'hakakses' => $result[0]->level);
             $this->session->set_userdata($session);
         } else {
             $response = array('statusCode' => 201, 'message' => 'Maaf, username dan password Anda salah. Harap periksa kembali username dan password Anda.');

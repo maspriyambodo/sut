@@ -1,4 +1,4 @@
-<table class="table table-bordered table-hover table-striped" style="width:100%;">
+<table class="table table-bordered table-hover table-striped">
     <thead>
         <tr>
             <th class="text-center text-uppercase">no<br>preorder</th>
@@ -24,7 +24,7 @@
                 <td>
                     <?= $value->telepon ?>
                 </td>
-                <td class="text-lowercase text-info text-center">
+                <td>
                     <?= $value->mail ?>
                 </td>
                 <td class="text-center">

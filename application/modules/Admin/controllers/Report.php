@@ -20,15 +20,13 @@ class Report extends CI_Controller {
         $this->result = $this->M_User->Auth();
     }
 
-    function index($year) {
+    function index() {
         $data = [
             'title' => 'Report | PT SUT',
             'formtitle' => 'Report administrator',
             'id' => $this->result[0]->id,
             'uname' => $this->result[0]->username,
-            'hak_akses' => $this->result[0]->level,
-            'value' => $this->M_Report->index($year),
-            'year' => $this->M_Report->year()
+            'hak_akses' => $this->result[0]->level
         ];
         $data['content'] = $this->load->view('V_Report', $data, true);
         $this->load->view('template', $data);
