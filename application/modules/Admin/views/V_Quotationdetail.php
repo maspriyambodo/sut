@@ -116,3 +116,9 @@
         </tr>
     </tfoot>
 </table>
+<div class="form-group">
+    <div class="btn-group">
+        <a href="<?= base_url('Admin/Preorder/Detail/' . $this->uri->segment(4) . ''); ?>" class="btn btn-default"><i class="glyphicon glyphicon-chevron-left"></i> Back</a>
+        <a href="<?= base_url('Admin/Qoutation/Cetak/' . $this->uri->segment(4) . ''); ?>" class="btn btn-default"><i class="glyphicon glyphicon-print"></i> Print</a>
+    </div>
+</div>

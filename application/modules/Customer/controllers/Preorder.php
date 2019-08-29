@@ -123,4 +123,17 @@ class Preorder extends CI_Controller {
         $this->load->view('V_Quotationpo', $data);
     }
 
+    function Process($no_po) {
+        $data = [
+            'title' => 'Process Preorder | PT SUT',
+            'formtitle' => 'Process Preorder',
+            'id' => $this->result[0]->id_customer,
+            'uname' => $this->result[0]->username,
+            'hak_akses' => $this->result[0]->level,
+            'value' => $this->M_Preorder->Process($no_po)
+        ];
+        $data['content'] = $this->load->view('V_Process', $data, true);
+        $this->load->view('Template', $data);
+    }
+
 }

@@ -23,9 +23,13 @@ class M_Customer extends CI_Model {
 
     function Simpan($data) {
         $idcust = $this->db->select('MAX(customers.id_customer) + 1 AS idcust')->from('customers')->get()->result();
+        if ($idcust == []) {
+            $idcust = 1;
+        } else {
+            $idcust = $this->db->select('MAX(customers.id_customer) + 1 AS idcust')->from('customers')->get()->result();
+        }
         $this->db->trans_begin();
-        $this->db->set(['customers.nama' => $data['nama'], 'customers.perusahaan' => $data['perusahaan'], 'customers.alamat_perusahaan' => $data['alamat_perusahaan'], 'customers.telepon' => $data['telepon'], 'customers.mail' => $data['mail']])
-                ->insert('customers');
+        $this->db->set(['customers.nama' => $data['nama'], 'customers.perusahaan' => $data['perusahaan'], 'customers.alamat_perusahaan' => $data['alamat_perusahaan'], 'customers.telepon' => $data['telepon'], 'customers.mail' => $data['mail']])->insert('customers');
         $this->db->set(['user_login.username' => $data['mail'], 'user_login.password' => sha1($data['telepon']), 'user_login.level' => 2])->insert('user_login');
         $i = 0;
         for ($i = 0; $i < sizeof($data['nama_barang']); $i++) {
